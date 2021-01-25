@@ -14,7 +14,7 @@ function AlertModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Error
+            AN ERROR OCCURED !!!
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
