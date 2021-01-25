@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Form from './components/form'
+import DropDown from './components/Dropdown'
+import {useState} from 'react';
+import { useEffect } from "react";
+import axios from 'axios';
 
 function App() {
+  const [isClick, setIsClick] = useState(true)
+
+  const click = () =>{
+    setIsClick(false)
+  }
+
+  useEffect(() =>{
+  axios.post('http://127.0.0.1:8000/api/student/'
+  , {"lrn": "1201948"})
+  .then(response => console.log(response.data))})
+    
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Container className="container">
+      <Col><Form see={click}/></Col>
+    </Container>
+    );
 }
 
 export default App;
