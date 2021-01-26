@@ -2,14 +2,22 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import {useState} from 'react';
 import {useEffect} from 'react'
+import {useRef} from 'react'
 import './form.css';
 import axios from 'axios';
 import DropDown from './Dropdown'
 import AlertModal from './AlertError'
+import Grades from './Grades'
 
 function Formgrades(prop) {
 
     const [lrn, setLrn] = useState(0)
+
+    const mountedRef = useRef(true)
+
+    const [gradeshow, setGradeshow] = useState(false)
+
+    const [savedata, setSavedata] = useState(0)
 
     const lrnonchange = (e) =>{
       setLrn(e.target.value)
@@ -22,29 +30,40 @@ function Formgrades(prop) {
 
     const [gradelevel, setGradelevel] = useState("Select One")
 
-    const junior = (e) =>{
-          axios.post('http://127.0.0.1:8000/api/student/'
-          , {"lrn": lrn})
-          .then(response => console.log(response.data))
+    const junior = async() =>{
+          await axios.post('http://127.0.0.1:8000/api/v2/'
+          , {"lrn":lrn, "level": gradelevel, "student_id": studentId})
+          .then(response => {
+            if (!mountedRef.current) return null
+            const res = response.data
+            setSavedata(res)
+          })
+          .catch(error => {
+            console.log(error)})
         }
 
-    useEffect(() => console.log(gradelevel))
+        useEffect(() => {
+          return () => { 
+            mountedRef.current = false
+          }
+        }, [])
 
     const click = (e) =>{
       e.preventDefault()
-      if (gradelevel == "Select One" || lrn.length != 7 || studentId.length < 1){
+      if (gradelevel == "Select One" || lrn.length != 12 || studentId.length < 1){
         setmodalstatus(true)
       }else{
-        if (gradelevel == "JuniorHigh"){
-          junior()
-        }
+        junior()
+        setGradeshow(true)
+        console.log(savedata)
       }
     }
 
-
   return (
     <Form className="form">
+    <Grades gradestatus={[gradeshow, setGradeshow]} savedata={savedata}/>
     <AlertModal modalstatus={[modalstatus, setmodalstatus]} />
+
     <Form.Group controlId="formBasicEmail">
       <Form.Label>LRN</Form.Label>
       <Form.Control onChange={lrnonchange} type="text" placeholder="Enter your LRN" />
@@ -53,9 +72,9 @@ function Formgrades(prop) {
       </Form.Text>
     </Form.Group>
   
-    <Form.Group controlId="formBasicPassword">
+    <Form.Group>
       <Form.Label>Student ID</Form.Label>
-      <Form.Control onChange={(studid)=>setStudentId(studid)} type="text" placeholder="Student ID" />
+      <Form.Control onChange={(studid)=>setStudentId(studid.target.value)} type="text" placeholder="Student ID" />
     </Form.Group>
     <Form.Group>
       
