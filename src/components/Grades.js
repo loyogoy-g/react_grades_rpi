@@ -14,7 +14,8 @@ function Grades(props) {
   >
     <Modal.Header closeButton>
       <Modal.Title id="contained-modal-title-vcenter">
-        VIRTUAL CARD
+        <h4>{savedata.Name} <br></br> </h4>
+        <h6>{savedata.Section}</h6>
       </Modal.Title>
     </Modal.Header>
     <Modal.Body>

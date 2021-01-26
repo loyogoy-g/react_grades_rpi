@@ -13,8 +13,6 @@ function Formgrades(prop) {
 
     const [lrn, setLrn] = useState(0)
 
-    const mountedRef = useRef(true)
-
     const [gradeshow, setGradeshow] = useState(false)
 
     const [savedata, setSavedata] = useState(0)
@@ -34,19 +32,14 @@ function Formgrades(prop) {
           await axios.post('http://127.0.0.1:8000/api/v2/'
           , {"lrn":lrn, "level": gradelevel, "student_id": studentId})
           .then(response => {
-            if (!mountedRef.current) return null
             const res = response.data
             setSavedata(res)
+            setGradeshow(true)
           })
           .catch(error => {
             console.log(error)})
         }
 
-        useEffect(() => {
-          return () => { 
-            mountedRef.current = false
-          }
-        }, [])
 
     const click = (e) =>{
       e.preventDefault()
@@ -54,7 +47,6 @@ function Formgrades(prop) {
         setmodalstatus(true)
       }else{
         junior()
-        setGradeshow(true)
         console.log(savedata)
       }
     }
