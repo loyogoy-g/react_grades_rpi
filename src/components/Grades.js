@@ -22,7 +22,7 @@ function Grades(props) {
       <Top savedata={savedata}/>
     </Modal.Body>
     <Modal.Footer>
-      <Button>Close</Button>
+      <Button onClick={()=>setGradeshow(false)}>Close</Button>
     </Modal.Footer>
   </Modal>
     

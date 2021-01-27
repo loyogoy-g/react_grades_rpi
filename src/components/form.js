@@ -7,9 +7,13 @@ import './form.css';
 import axios from 'axios';
 import DropDown from './Dropdown'
 import AlertModal from './AlertError'
+import Staus from './Status'
 import Grades from './Grades'
+import Status from './Status';
 
 function Formgrades(prop) {
+
+    const [allstatus, setallstatus] =  useState(false)
 
     const [lrn, setLrn] = useState(0)
 
@@ -51,8 +55,14 @@ function Formgrades(prop) {
       }
     }
 
+    useEffect(() => axios.post("http://127.0.0.1:8000/api/all/")
+          .then((res) => res.data[0].Status? setallstatus(true): setallstatus(false))
+  )
+
+
   return (
     <Form className="form">
+      <Status allstatus={[allstatus, setallstatus] } />
     <Grades gradestatus={[gradeshow, setGradeshow]} savedata={savedata}/>
     <AlertModal modalstatus={[modalstatus, setmodalstatus]} />
 
