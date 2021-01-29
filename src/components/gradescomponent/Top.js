@@ -9,21 +9,22 @@ function Top(props) {
 
     const grades = data.data
 
+
     const table = 
         grades.map((res) => 
         <tr>
         <td>{res.Subject}</td>
-        <td>{~~res.Data[0]}</td>
-        <td>{~~res.Data[1]}</td>
+        <td>{(res.Subject.toLowerCase()).includes("average")? res.Data[0]: ~~res.Data[0]}</td>
+        <td>{(res.Subject.toLowerCase()).includes("average")? res.Data[1]: ~~res.Data[1]}</td>
       </tr>)
 
     const seniortable = 
     grades.map((res) => 
     <tr>
-    <td>{res.Subject}</td>
-    <td>{~~res.Data[0]}</td>
-    <td>{~~res.Data[1]}</td>
-    <td>{((parseInt(res.Data[1]) + parseInt(res.Data[0]))/2).toFixed(2)}</td>
+    <td style={{fontSize: "1.2rem"}}>{res.Subject}</td>
+    <td>{(res.Subject.toLowerCase()).includes("average")? res.Data[0]: ~~res.Data[0]}</td>
+    <td>{(res.Subject.toLowerCase()).includes("average")? res.Data[1]: ~~res.Data[1]}</td>
+    <td>{((parseFloat(res.Data[1]) + parseFloat(res.Data[0]))/2).toFixed(2)}</td>
     </tr>)
 
 
@@ -32,7 +33,7 @@ function Top(props) {
       return (<Table striped bordered hover>
         <thead>
           <tr>
-            <th>Subject</th>
+            <th>Learning Areas</th>
             <th>First Quarter</th>
             <th>Second Quarter</th>
             <th>Final Grade</th>
@@ -47,7 +48,7 @@ function Top(props) {
         <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Subject</th>
+            <th>Learning Areas</th>
             <th>First Quarter</th>
             <th>Second Quarter</th>
           </tr>

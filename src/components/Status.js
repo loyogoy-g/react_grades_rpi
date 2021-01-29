@@ -7,12 +7,9 @@ import Image from 'react-bootstrap/Image'
 
 
 function Status(props) {
-
-    const [allstatus, setallstatus] = props.allstatus
  
     return (
-      <Modal show={allstatus}
-        size="lg"
+      <Modal show={props.allstatus}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="top"

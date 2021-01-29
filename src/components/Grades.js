@@ -8,21 +8,24 @@ function Grades(props) {
    const savedata = props.savedata
 
   return (
-    <Modal show={gradeshow} size="lg"
+    <Modal show={gradeshow}
     aria-labelledby="contained-modal-title-vcenter"
     centered
   >
-    <Modal.Header closeButton>
-      <Modal.Title id="contained-modal-title-vcenter">
-        <h4>{savedata.Name} <br></br> </h4>
-        <h6>{savedata.Section}</h6>
+    <Modal.Header>
+      <Modal.Title>
+      <p><strong>{savedata.Name}</strong></p>
+        <p><span style={{fontSize: "1.4rem"}}>{savedata.Section}</span></p>
+        
       </Modal.Title>
     </Modal.Header>
-    <Modal.Body>
+    <Modal.Body >
       <Top savedata={savedata}/>
     </Modal.Body>
     <Modal.Footer>
-      <Button onClick={()=>setGradeshow(false)}>Close</Button>
+      <Button onClick={()=>{
+        setGradeshow(false)
+      console.log(savedata)}}>Close</Button>
     </Modal.Footer>
   </Modal>
     

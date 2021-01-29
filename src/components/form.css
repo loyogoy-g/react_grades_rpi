@@ -2,5 +2,6 @@
     padding: 2rem;
     border: green 2px solid;
     border-radius: 10%;
-    background-color: aliceblue;
+    color: white;
+    background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, .1) 0px, rgba(0, 0, 0, 0.1) 2px, transparent 2px, transparent 4px), linear-gradient(45deg, #040404, rgb(238, 238, 238));
 }

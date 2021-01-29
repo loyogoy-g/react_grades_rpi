@@ -7,13 +7,15 @@ import './form.css';
 import axios from 'axios';
 import DropDown from './Dropdown'
 import AlertModal from './AlertError'
-import Staus from './Status'
+import Status from './Status'
 import Grades from './Grades'
-import Status from './Status';
+import { MdAccountCircle } from "react-icons/md";
+import { MdDvr } from "react-icons/md";
+import { TiWarning } from "react-icons/ti";
 
 function Formgrades(prop) {
 
-    const [allstatus, setallstatus] =  useState(false)
+    const [allstatus, setallstatus] = useState(false)
 
     const [lrn, setLrn] = useState(0)
 
@@ -33,7 +35,7 @@ function Formgrades(prop) {
     const [gradelevel, setGradelevel] = useState("Select One")
 
     const junior = async() =>{
-          await axios.post('http://127.0.0.1:8000/api/v2/'
+          await axios.post('https://gilbertloyogoy.tk/api/v2/'
           , {"lrn":lrn, "level": gradelevel, "student_id": studentId})
           .then(response => {
             const res = response.data
@@ -55,31 +57,32 @@ function Formgrades(prop) {
       }
     }
 
-    useEffect(() => axios.post("http://127.0.0.1:8000/api/all/")
-          .then((res) => res.data[0].Status? setallstatus(true): setallstatus(false))
-  )
+    useEffect(() => axios.post("https://gilbertloyogoy.tk/api/all/")
+          .then((res) => {
+            setallstatus(res.data[0].Status) 
+            console.log(res.data[0].Status)
+            console.log(modalstatus, setmodalstatus)}
+  ))
 
 
   return (
     <Form className="form">
-      <Status allstatus={[allstatus, setallstatus] } />
+      <p style={{fontSize: "1.4rem", textAlign:"center" }}><strong>RAMON PASCUAL INSTITUTE</strong></p>
     <Grades gradestatus={[gradeshow, setGradeshow]} savedata={savedata}/>
     <AlertModal modalstatus={[modalstatus, setmodalstatus]} />
-
     <Form.Group controlId="formBasicEmail">
-      <Form.Label>LRN</Form.Label>
+      <Form.Label><MdDvr/>  LRN</Form.Label>
       <Form.Control onChange={lrnonchange} type="text" placeholder="Enter your LRN" />
-      <Form.Text className="text-muted">
-        Please do not share your LRN and Student ID.
+      <Form.Text  className="text-muted">
+        <p style={{color:"yellow"}}><TiWarning />  Please do not share your LRN and Student ID.</p>
       </Form.Text>
     </Form.Group>
   
     <Form.Group>
-      <Form.Label>Student ID</Form.Label>
+      <Form.Label><MdAccountCircle/>  Student ID</Form.Label>
       <Form.Control onChange={(studid)=>setStudentId(studid.target.value)} type="text" placeholder="Student ID" />
     </Form.Group>
     <Form.Group>
-      
       <DropDown gradelevel={gradelevel} setGradelevel={setGradelevel}/>
     
     </Form.Group>
@@ -87,6 +90,7 @@ function Formgrades(prop) {
     <Button onClick={click} variant="primary" type="submit">
       Submit
     </Button>
+    <Status allstatus={allstatus} />
   </Form>
   );
 }

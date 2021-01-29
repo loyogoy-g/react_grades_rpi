@@ -1,6 +1,7 @@
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+import { TiWarning } from "react-icons/ti";
 
 function AlertModal(props) {
 
@@ -8,7 +9,6 @@ function AlertModal(props) {
 
     return (
       <Modal show={modalstatus}
-        size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -18,13 +18,9 @@ function AlertModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Alert variant="primary">Please Check your Entries</Alert>
-          <Alert variant="danger">
-            LRN must be 12 digit number<br></br>
-        </Alert>
-        <Alert variant="danger">
-            Please Select a Level<br></br>
-        </Alert>        
+            <p style={{fontSize: "1.4rem", }}><TiWarning/> LRN must be 12 digit number</p><br></br>
+        
+             <p style={{fontSize: "1.4rem"}}><TiWarning/> Please Select a Level</p> <br></br>   
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={()=>setmodalstatus(false)}>Close</Button>
